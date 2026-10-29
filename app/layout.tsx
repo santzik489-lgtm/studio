@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@hellyeah/x-ray/next";
+import { TRACKER_ID } from "../lib/tracker-id";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,7 +29,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics
+          websiteId={TRACKER_ID}
+          env={process.env.NEXT_PUBLIC_HELLYEAH_TRACKER_ENV}
+        />
+      </body>
     </html>
   );
 }
